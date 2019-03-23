@@ -25,11 +25,11 @@ The human reference genome is still incomplete, especially for those population-
 
     git clone git@github.com:SJTU-CGM/HUPAN.git
 
- - Alternatively, you also could obtain the package in the
-   http://cgm.sjtu.edu.cn/hupan/. Please uncompress the HUPAN toolbox
-   package.
+ - Alternatively, you also could obtain the toolbox in the [HUPAN][4] website. 
 
-    tar zxvf HUPAN-v**.tar.gz 
+ - Please uncompress the HUPAN toolbox package.
+   
+       tar zxvf HUPAN-v**.tar.gz
 
  - Install necessary R packages
 
@@ -39,8 +39,7 @@ The human reference genome is still incomplete, especially for those population-
    
    make
    
-     You will find executable files: *ccov*, *bam2cov* and *hupan* et
-   al. in bin/ directory.
+     You will find executable files: *ccov*, *bam2cov* and *hupan* et al. in bin/ directory.
 
  - Add bin/ to PATH and add lib/ to LD_LIBRARY_PATH. To do this, add the
    following text to ~/.bash_profile
@@ -57,10 +56,10 @@ The human reference genome is still incomplete, especially for those population-
        source ~/.bash_profile
 
 
- - Test if HUPAN toolbox is installed successfully. `hupan` If you see
+ - Test if HUPAN toolbox is installed successfully: `hupan` If you see
    the following content, congratulations! HUPAN toolbox is successfully
    installed. If not, see if all the requirements are satisfied or
-   contact the author for help.
+   contact the authors for help.
 
    
 
@@ -109,8 +108,8 @@ Due to the large genome size of individual genome, conducting pan-genome analysi
 
 **(1)	Example data**
 
-This data set includes sequencing data of three samples from [NA12878][4]. Each sample include 6,000,000 paired-end reads that could map to chromosome 22. Note these are only simple example to help users understand the input data type and data structure, and run the pipeline. The real data may be much larger and more complex. 
-Please download [here][5] and undecompress it:
+This data set includes sequencing data of three samples from [NA12878][5]. Each sample include 6,000,000 paired-end reads that could map to chromosome 22. Note these are only simple example to help users understand the input data type and data structure, and run the pipeline. The real data may be much larger and more complex. 
+Please download [here][6] and undecompress it:
 
     tar zxvf hupanExample.tar.gz & cd hupanExample
 
@@ -121,7 +120,7 @@ And you can find two directories:
 
 **(2) The parallel quality control**
 
-The tools [FastQC][6] and [Trimmomatic][7] were used to view the sequencing quality and trim low-quality reads.
+The tools [FastQC][7] and [Trimmomatic][8] were used to view the sequencing quality and trim low-quality reads.
 i. The command `qualitySta` is used to overview qualities:
 
     hupanSLURM  qualSta -f /path/to/Fastqc -t 16 -v PE data/ preview_quality/
@@ -138,7 +137,7 @@ iii.After trimming or filtration of reads, the sequencing quality should be eval
 **(3) De novo assembly of individual genomes**
 
 To obtain non-reference sequences from each individual genome, we need first to conduct de novo assembly on the raw reads. We provide three distinct strategies:
-i.Directly assembly by [SOAPDenovo2][8]. Please note that this startegy requires huge memory for assembly an individual human genome (according to our test, finishing the assembly of a human genome of 30-fold sequencing data needs more than 500 Gb memory), we strongly suggested that do not use this command unless you have multiple supercomputer with huge memory.
+i.Directly assembly by [SOAPDenovo2][9]. Please note that this startegy requires huge memory for assembly an individual human genome (according to our test, finishing the assembly of a human genome of 30-fold sequencing data needs more than 500 Gb memory), we strongly suggested that do not use this command unless you have multiple supercomputer with huge memory.
 
     hupanSLURM assemble soapdenovo -t 16 -k 91 data/ assembly_soap/ /path/to/SOAPDenovo2/
 
@@ -146,13 +145,13 @@ ii.Assembly by the iterative use of SOAPDenovo2. Not Recommended.
 
     hupanSLURM linearK data assembly_linearK/ /path/to/SOAPDenovo2 
 
-iii. Assembly by [SGA][9]. We recommend the users preform assembly by this command. According to our experience on 185 newly sequenced genomes, the maximum memory consumption in assembling the human genome of 30-fold sequencing data is about 60Gb.
+iii. Assembly by [SGA][10]. We recommend the users preform assembly by this command. According to our experience on 185 newly sequenced genomes, the maximum memory consumption in assembling the human genome of 30-fold sequencing data is about 60Gb.
 
     hupanSLURM assemble sga -t 16 data/ assembly_result /path/to/sga/
 
 **(4) Extract non-reference sequences from assembled contigs**
 
-i. In order to obtain the non-reference sequence from each individual genome, the assembled contigs are aligned to the reference genome with nucmer tool within [Mummer][10] package.
+i. In order to obtain the non-reference sequence from each individual genome, the assembled contigs are aligned to the reference genome with nucmer tool within [Mummer][11] package.
 
     hupanSLURM alignContig assembly_result/data/ aligned_result	 /path/to/MUMmer/ /path/to/reference.fa
 
@@ -160,7 +159,7 @@ ii. Then the contigs those are highly similar with the reference genome are disc
 
     hupanSLURM extractSeq assembly_result/data/ candidate aligned_result
 
-iii. All the candidate non-reference sequences are assessed by [QUAST][11] to obtain non-reference sequences.  
+iii. All the candidate non-reference sequences are assessed by [QUAST][12] to obtain non-reference sequences.  
 
     hupanSLURM assemSta candidate/data/ quast_result /path/to/quast-4.5/ /path/to/reference.fa
 
@@ -174,7 +173,7 @@ v. Non-reference sequences from multiple individuals are merged.
 
 **(5) Remove redundancy and potential commination sequences**
 
-i. After obtaining the non-reference sequences from multiple individuals, redundant sequences between different individuals should be excluded, and the potential commination sequences from non-human species are also removed for further analysis. The step of remove redundancy sequences is conducted by [CDHIT][12] for fully unaligned sequences and partially unaligned sequences, respectively.
+i. After obtaining the non-reference sequences from multiple individuals, redundant sequences between different individuals should be excluded, and the potential commination sequences from non-human species are also removed for further analysis. The step of remove redundancy sequences is conducted by [CDHIT][13] for fully unaligned sequences and partially unaligned sequences, respectively.
 
     hupanSLURM rmRedundant cdhitCluster  mergeUnalnCtg_result/total.fully.fa rmRedundant.fully.unaligned /path/to/cdhit/
     hupanSLURM rmRedundant cdhitCluster mergeUnalnCtg_result/total.partilly.fa rmRedundant.partially.unaligned /path/to/cd-hit/
@@ -201,7 +200,7 @@ i. The non-redundant sequences of fully unaligned sequences and partially unalig
     cat rmCtm_fully/data/novel_sequence.fa rmCtm_partially/data/novel_sequence.fa > Nonreference/nonrefernce.before.fa
     hupanSLURM rmRedundant cdhitCluster Nonreference/nonrefernce.before.fa NonredundantNonreference /path/to/cdhit/
 
-ii. And the resulted sequences together with the human reference genome construct the pan-genome sequences. The annotation of reference genome could be directly download from [GenCODE][13] or other common used annotation dataset. The annotation information of non-reference sequences is predicted by [MAKER][14].Usually, the size of non-reference sequences is large and the procedure of gene prediction is slow. We recommend the users to split the file of non-reference sequences into multiple small files and run maker in parallel.
+ii. And the resulted sequences together with the human reference genome construct the pan-genome sequences. The annotation of reference genome could be directly download from [GenCODE][14] or other common used annotation dataset. The annotation information of non-reference sequences is predicted by [MAKER][15].Usually, the size of non-reference sequences is large and the procedure of gene prediction is slow. We recommend the users to split the file of non-reference sequences into multiple small files and run maker in parallel.
 
     hupanSLURM splitSeq NonredundantNonreference/non-redundant.fa GenePre_input
     hupanSLURM genePre GenePre_input GenePre /path/to/maker/config_file /path/to/maker
@@ -223,12 +222,12 @@ v. The annotation of pan-genome sequences is simply to obtain by combine two ann
 **(7) PAV analysis**
 
 The “map-to_pan” strategy is utilized to determine gene presence-absence. 
-i. The raw reads are mapped to pan-genome sequences by [Bowtie2][15]
+i. The raw reads are mapped to pan-genome sequences by [Bowtie2][16]
 
       cd pan & /path/to/bowtie2/bowtie2-build pan.fa pan &cd ..
       hupanSLURM alignRead –f bowtie2 data/ map2pam /path/to/bowtie2 pan/pan
 
-ii. The result of .sam should be converted to .bam and sorted and indexed use [Samtools][16].
+ii. The result of .sam should be converted to .bam and sorted and indexed use [Samtools][17].
   
 
     hupanSLURM sam2bam map2pan/data panBam /path/to/samtools
@@ -257,16 +256,17 @@ Chaochun Wei: ccwei@sjtu.edu.cn
   [1]: http://cgm.sjtu.edu.cn/eupan/
   [2]: http://cgm.sjtu.edu.cn/eupan/
   [3]: https://github.com/SJTU-CGM/HUPAN
-  [4]: ftp://ftp-trace.ncbi.nih.gov/giab/ftp/data/NA12878/NIST_NA12878_HG001_HiSeq_300x/NHGRI_Illumina300X_novoalign_bams/HG001.GRCh38_full_plus_hs38d1_analysis_set_minus_alts.300x.bam
-  [5]: http://cgm.sjtu.edu.cn/hupan/data/ExampleData.tar.gz
-  [6]: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
-  [7]: http://www.usadellab.org/cms/index.php?page=trimmomatic
-  [8]: https://sourceforge.net/projects/soapdenovo2/
-  [9]: https://github.com/jts/sga/
-  [10]: https://sourceforge.net/projects/mummer/
-  [11]: http://quast.bioinf.spbau.ru/
-  [12]: http://weizhongli-lab.org/cd-hit/
-  [13]: https://www.gencodegenes.org/
-  [14]: http://www.yandell-lab.org/software/maker.html
-  [15]: http://bowtie-bio.sourceforge.net
-  [16]: http://www.htslib.org/
+  [4]: http://cgm.sjtu.edu.cn/hupan/download.php
+  [5]: ftp://ftp-trace.ncbi.nih.gov/giab/ftp/data/NA12878/NIST_NA12878_HG001_HiSeq_300x/NHGRI_Illumina300X_novoalign_bams/HG001.GRCh38_full_plus_hs38d1_analysis_set_minus_alts.300x.bam
+  [6]: http://cgm.sjtu.edu.cn/hupan/data/ExampleData.tar.gz
+  [7]: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
+  [8]: http://www.usadellab.org/cms/index.php?page=trimmomatic
+  [9]: https://sourceforge.net/projects/soapdenovo2/
+  [10]: https://github.com/jts/sga/
+  [11]: https://sourceforge.net/projects/mummer/
+  [12]: http://quast.bioinf.spbau.ru/
+  [13]: http://weizhongli-lab.org/cd-hit/
+  [14]: https://www.gencodegenes.org/
+  [15]: http://www.yandell-lab.org/software/maker.html
+  [16]: http://bowtie-bio.sourceforge.net
+  [17]: http://www.htslib.org/
