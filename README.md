@@ -26,7 +26,7 @@ The human reference genome is still incomplete, especially for those population-
     git clone git@github.com:SJTU-CGM/HUPAN.git
 
  - Alternatively, you also could obtain the package in the
-   http://cgm.sjtu.edu.cn/hupan/. Please uncompressed the HUPAN toolbox
+   http://cgm.sjtu.edu.cn/hupan/. Please uncompress the HUPAN toolbox
    package.
 
     tar zxvf HUPAN-v**.tar.gz 
@@ -244,7 +244,9 @@ iv. Finally, the gene presence-absence is determined by the threshold of cds cov
 **(8) Bugs or suggestions**
 
 Any bugs or suggestions, please contact the author,
+
 Zhongqu Duan: zhqduan@sjtu.edu.cn
+
 Chaochun Wei: ccwei@sjtu.edu.cn
 
 
@@ -268,4 +270,3 @@ Chaochun Wei: ccwei@sjtu.edu.cn
   [14]: http://www.yandell-lab.org/software/maker.html
   [15]: http://bowtie-bio.sourceforge.net
   [16]: http://www.htslib.org/
-  [17]: zhqduan@sjtu.edu.cn
