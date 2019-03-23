@@ -106,6 +106,7 @@ HUPAN is an improved version of EUPAN, and most functions were directly obtained
     which, "sbatch" is used to submit jobs).
 
 Due to the large genome size of individual genome, conducting pan-genome analysis on hudreds of individuals could hardly finish on in single machine. We strongly suggestted the users conduct all the analysis in the supercomputer implemented LSF system or SLURM system. All the commands of `hupanLSF` and `hupanSLURM` are same excepted for the way of submit jobs are different. In the following, we give all the exmaples of command based on SLURM system. If the users work on supercomputer based on LSF system, please replace “`hupanSLURM`” with “`hupanLSF`”.
+
 **(1)	Example data**
 
 This data set includes sequencing data of three samples from [NA12878][4]. Each sample include 6,000,000 paired-end reads that could map to chromosome 22. Note these are only simple example to help users understand the input data type and data structure, and run the pipeline. The real data may be much larger and more complex. 
@@ -133,6 +134,7 @@ ii. If the reads are not so good, the users could trim or filter low-quality rea
 
 Results could be found in the trim or filter directory.
 iii.After trimming or filtration of reads, the sequencing quality should be evaluated again by `qualitySta`, and if the trimming results are still not good for subsequent analyses, new parameters should be given and the above steps should be conducted for several times.
+
 **(3) De novo assembly of individual genomes**
 
 To obtain non-reference sequences from each individual genome, we need first to conduct de novo assembly on the raw reads. We provide three distinct strategies:
@@ -241,7 +243,9 @@ iv. Finally, the gene presence-absence is determined by the threshold of cds cov
 
 **(8) Bugs or suggestions**
 
-Any bugs or suggestions, please contact the [authors][17]. 
+Any bugs or suggestions, please contact the author,
+Zhongqu Duan: zhqduan@sjtu.edu.cn
+Chaochun Wei: ccwei@sjtu.edu.cn
 
 
 
