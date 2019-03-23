@@ -3,6 +3,7 @@
 ---
 
  **1. Introduction**
+ 
 The human reference genome is still incomplete, especially for those population-specific or individual-specific regions, which may have important functions. It encourages us to build the pan-genome of human population. Previously, our team developed a "map-to-pan" strategy--[EUPAN][1], specific for eukaryotic pan-genome analysis. However, due to the large genome size of individual human genome, [EUPAN][2] is not suit for pan-genome analysis involving in hundreds of individual genomes. Here, we present an improved tool, HUPAN (Human Pan-genome Analysis), for human pan-genome analysis.
 
 **2. Installation**
@@ -95,6 +96,7 @@ The human reference genome is still incomplete, especially for those population-
         	filterNovGene	Filter the novel precited genes.
 
 **3.	Main analysis procedures**
+
 HUPAN is an improved version of EUPAN, and most functions were directly obtained from EUPAN. Besides, several new functions were developed for efficient pan-genome analysis on human genome. Here, we provide the main analysis procedures of human pan-genome analysis on an example data. And we provide three types of tools:
 
  1. Single machine version;
@@ -105,6 +107,7 @@ HUPAN is an improved version of EUPAN, and most functions were directly obtained
 
 Due to the large genome size of individual genome, conducting pan-genome analysis on hudreds of individuals could hardly finish on in single machine. We strongly suggestted the users conduct all the analysis in the supercomputer implemented LSF system or SLURM system. All the commands of `hupanLSF` and `hupanSLURM` are same excepted for the way of submit jobs are different. In the following, we give all the exmaples of command based on SLURM system. If the users work on supercomputer based on LSF system, please replace “`hupanSLURM`” with “`hupanLSF`”.
 **(1)	Example data**
+
 This data set includes sequencing data of three samples from [NA12878][4]. Each sample include 6,000,000 paired-end reads that could map to chromosome 22. Note these are only simple example to help users understand the input data type and data structure, and run the pipeline. The real data may be much larger and more complex. 
 Please download [here][5] and undecompress it:
 
@@ -116,6 +119,7 @@ And you can find two directories:
     ref/    The reference sequence and annotation information (chr22 of GRCh38).
 
 **(2) The parallel quality control**
+
 The tools [FastQC][6] and [Trimmomatic][7] were used to view the sequencing quality and trim low-quality reads.
 i. The command `qualitySta` is used to overview qualities:
 
@@ -130,6 +134,7 @@ ii. If the reads are not so good, the users could trim or filter low-quality rea
 Results could be found in the trim or filter directory.
 iii.After trimming or filtration of reads, the sequencing quality should be evaluated again by `qualitySta`, and if the trimming results are still not good for subsequent analyses, new parameters should be given and the above steps should be conducted for several times.
 **(3) De novo assembly of individual genomes**
+
 To obtain non-reference sequences from each individual genome, we need first to conduct de novo assembly on the raw reads. We provide three distinct strategies:
 i.Directly assembly by [SOAPDenovo2][8]. Please note that this startegy requires huge memory for assembly an individual human genome (according to our test, finishing the assembly of a human genome of 30-fold sequencing data needs more than 500 Gb memory), we strongly suggested that do not use this command unless you have multiple supercomputer with huge memory.
 
@@ -143,7 +148,8 @@ iii. Assembly by [SGA][9]. We recommend the users preform assembly by this comma
 
     hupanSLURM assemble sga -t 16 data/ assembly_result /path/to/sga/
 
-**(4) Extract non-reference sequences from assembled contigs** 	
+**(4) Extract non-reference sequences from assembled contigs**
+
 i. In order to obtain the non-reference sequence from each individual genome, the assembled contigs are aligned to the reference genome with nucmer tool within [Mummer][10] package.
 
     hupanSLURM alignContig assembly_result/data/ aligned_result	 /path/to/MUMmer/ /path/to/reference.fa
@@ -165,6 +171,7 @@ v. Non-reference sequences from multiple individuals are merged.
     hupanSLURM mergeUnalnCtg Unalign_result/data/ mergeUnalnCtg_result
 
 **(5) Remove redundancy and potential commination sequences**
+
 i. After obtaining the non-reference sequences from multiple individuals, redundant sequences between different individuals should be excluded, and the potential commination sequences from non-human species are also removed for further analysis. The step of remove redundancy sequences is conducted by [CDHIT][12] for fully unaligned sequences and partially unaligned sequences, respectively.
 
     hupanSLURM rmRedundant cdhitCluster  mergeUnalnCtg_result/total.fully.fa rmRedundant.fully.unaligned /path/to/cdhit/
@@ -185,6 +192,7 @@ iv. And the sequences classifying as microbiology and non-primate eukaryotes are
     hupanSLURM rmCtm -i 60 rmRedundant/partially/partially.non-redundant.fa rmRedundant_blast/data/partially/partially.non-redundant.blast TaxClass_partially/data/accession.name rmCtm_partially
 
 **(6) Construction and annotation of pan-genome**
+
 i. The non-redundant sequences of fully unaligned sequences and partially unaligned sequences are merged and further clustered to remove redundant sequences.
 
     mkdir Nonreference
@@ -211,6 +219,7 @@ v. The annotation of pan-genome sequences is simply to obtain by combine two ann
       cat ref/ref-ptpg.gtf non-reference.gtf >pan/pan.gtf
 
 **(7) PAV analysis**
+
 The “map-to_pan” strategy is utilized to determine gene presence-absence. 
 i. The raw reads are mapped to pan-genome sequences by [Bowtie2][15]
 
@@ -231,6 +240,7 @@ iv. Finally, the gene presence-absence is determined by the threshold of cds cov
       mkdir geneExist & hupanSLURM geneExist geneCov/summary_gene.cov geneCov/summary_cds.cov 0 0.95 >geneExist/gene.exist
 
 **(8) Bugs or suggestions**
+
 Any bugs or suggestions, please contact the [authors][17]. 
 
 
