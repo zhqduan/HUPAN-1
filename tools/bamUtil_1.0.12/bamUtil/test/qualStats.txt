@@ -1,0 +1,2 @@
+Exiting due to ERROR:
+	FAIL_IO: Failed to Open testFiles/testSam.sam for reading

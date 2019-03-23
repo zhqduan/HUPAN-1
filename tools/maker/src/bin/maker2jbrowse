@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+#maker2jbrowse is now packaged with jbrowse, so launch that
+if (-f './bin/maker2jbrowse'){
+    exec('./bin/maker2jbrowse', @ARGV);
+}
+else{
+    die "ERROR: You must run maker2jbrowse inside of the JBrowse installation directory on your server\n";
+}

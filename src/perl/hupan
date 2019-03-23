@@ -1,0 +1,230 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use HUPANqualSta;
+use HUPANtrim;
+use HUPANmap;
+use HUPANsamToBam;
+use HUPANbamSta;
+use HUPANassem;
+use HUPANassemSta;
+use HUPANunalnCtg;
+use HUPANrmRdt;
+use HUPANfastaSta;
+use HUPANgeneCov;
+use HUPANpTpG;
+use HUPANgeneExist;
+use HUPANbam2bed;
+use HUPANsim;
+use HUPANrmHigh;
+use HUPANgetTaxClass;
+use HUPANrmContaminate;
+use HUPANblastAlign;
+use HUPANsimSeq;
+use HUPANsplitSeq;
+use HUPANgenePre;
+use HUPANmergeNovGene;
+use HUPANfilterNovGene;
+
+checkPRE() if @ARGV==0;
+PrintUsage() if @ARGV<1;
+
+my %commands=(
+    "qualSta"       => 0,
+    "trim"          => 0,
+    "alignRead"     => 0,
+    "sam2bam"       => 0,
+    "bamSta"        => 0,
+    "assemble"      => 0,
+    "assemSta"      => 0,
+    "getUnalnCtg"   => 0,
+    "rmRedundant"   => 0,
+    "pTpG"          => 0,
+    "geneCov"       => 0,
+    "geneExist"     => 0,
+    "subSample"     => 0,
+    "gFamExist"     => 0,
+    "bam2bed"       => 0, 
+    "fastaSta"      => 0,
+    "sim"           => 0,
+    "alignContig"   => 0,
+    "extractSeq"    => 0,
+    "getTaxClass"   => 0,
+    "rmCtm"         => 0,
+    "blastAlign"    => 0,
+    "simSeq"        => 0,
+    "splitSeq"      => 0,
+    "genePre"       => 0,
+    "mergeNovGene"  => 0,
+    "filterNovGene" => 0
+);
+
+my $com=shift @ARGV;
+if(defined $commands{$com}){
+    $commands{$com}=1;
+}
+else{
+    print STDERR "Invalid command: $com\n";
+    PrintUsage(); 
+}
+
+if($commands{"qualSta"}){
+    if(qualSta::checkQual(@ARGV)){
+	qualSta::mergeFastqc(@ARGV);
+    }
+}
+elsif($commands{"trim"}){
+    trim::trimFastq(@ARGV);
+}
+elsif($commands{"alignRead"}){
+    align::map(@ARGV);
+}
+elsif($commands{"sam2bam"}){
+    adjAlign::sam2bam(@ARGV);
+}
+elsif($commands{"bamSta"}){
+    bamStat::bamsta(@ARGV);
+}
+elsif($commands{"assemble"}){
+    assembly::assemble(@ARGV);
+}
+elsif($commands{"assemSta"}){
+    assemStat::runQuast(@ARGV);
+}
+elsif($commands{"getUnalnCtg"}){
+    unalnCtg::getUnaln(@ARGV);
+}
+elsif($commands{"rmRedundant"}){
+    rmRDT::rmRDT(@ARGV);
+}
+elsif($commands{"fastaSta"}){
+    fastaSta::sta(@ARGV);
+}
+elsif($commands{"geneCov"}){
+    geneCov::cov(@ARGV);
+}
+elsif($commands{"pTpG"}){
+    pTpG::pTpG(@ARGV);
+}
+elsif($commands{"geneExist"}){
+    gExist::checkGeneExist(@ARGV);
+}
+elsif($commands{"subSample"}){
+    gExist::subsetSample(@ARGV);
+}
+elsif($commands{"gFamExist"}){
+    gExist::gE2gfE(@ARGV);
+}
+elsif($commands{"bam2bed"}){
+    bam2cov::bam2bed(@ARGV);
+}
+elsif($commands{"sim"}){
+    sim::simulation(@ARGV);
+    sim::pavPlot(@ARGV);
+}
+elsif($commands{"alignContig"}){
+    rmHigh::alignContig(@ARGV);
+}
+elsif($commands{"extractSeq"}){
+    rmHigh::extractSeq(@ARGV);
+}
+elsif($commands{"getTaxClass"}){
+    getTaxClass::getTaxClass(@ARGV);
+}
+elsif($commands{"rmCtm"}){
+    rmCTM::rmContaminate(@ARGV);
+}
+elsif($commands{"blastAlign"}){
+    blastAlign::blastAlign(@ARGV);
+}
+elsif($commands{"simSeq"}){
+    simSeq::simSeq(@ARGV);
+}
+elsif($commands{"splitSeq"}){
+    splitSeq::splitSeq(@ARGV);
+}
+elsif($commands{"genePre"}){
+    genePre::genePre(@ARGV);
+}
+elsif($commands{"mergeNovGene"}){
+    mergeNovGene::mergeNovGene(@ARGV);
+}
+elsif($commands{"filterNovGene"}){
+    filterNovGen::filterNovGen(@ARGV)
+}
+
+sub PrintUsage{
+    print STDERR "\nUsage: hupan <command> ...\n\n";
+    print STDERR "Available commands:\n";
+    print STDERR "\tqualSta      \tView the overall sequencing quality of a large number of files\n";
+    print STDERR "\ttrim         \tTrim or filter low-quality reads parallelly\n";
+    print STDERR "\talignRead    \tMap reads to a reference parallelly\n";
+    print STDERR "\tsam2bam      \tCovert alignments (.sam) to sorted .bam files\n";
+    print STDERR "\tbamSta       \tStatistics of parallel mapping\n";
+    print STDERR "\tassemble     \tAssemble reads parallelly\n";
+    print STDERR "\talignContig  \tAlign assembly results to a referenece parallelly\n";
+    print STDERR "\textractSeq   \tExtract contigs parallelly\n"; 
+    print STDERR "\tassemSta     \tStatistics of parallel assembly\n";
+    print STDERR "\tgetUnalnCtg  \tExtract the unaligned contigs from nucmer alignment (processed by quast)\n";
+    print STDERR "\trmRedundant  \tRemove redundant contigs of a fasta file\n";
+    print STDERR "\tpTpG         \tGet the longest transcripts to represent genes\n";
+    print STDERR "\tgeneCov      \tCalculate gene body coverage and CDS coverage\n";
+    print STDERR "\tgeneExist    \tDetermine gene presence-absence based on gene body coverage and CDS coverage\n";
+    print STDERR "\tsubSample    \tSelect subset of samples from gene PAV profile\n";
+    print STDERR "\tgFamExist    \tDetermine gene family presence-absence based on gene presence-absence\n";
+    print STDERR "\tbam2bed      \tCalculate genome region presence-absence from .bam\n";
+    print STDERR "\tfastaSta     \tCalculate statistics of fasta file\n";
+    print STDERR "\tsim          \tSimulation and plot of the pan-genome and the core genome\n";
+    print STDERR "\tgetTaxClass  \tObtain the taxonomic classification of sequences\n";
+    print STDERR "\trmCtm        \tDetect and discard the potentail contamination\n";
+    print STDERR "\tblastAlign   \tAlign sequences to target sequence by blast\n";
+    print STDERR "\tsimSeq       \tSimulate and plot the total size of novel sequences\n";
+    print STDERR "\tsplitSeq     \tSplit sequence file into multiple small size files\n";
+    print STDERR "\tgenePre      \tAb initio gene predict combining with RNA and protein evidence\n";
+    print STDERR "\tmergeNovGene \tMerge maker result from multiple maker result files\n";
+    print STDERR "\tfilterNovGene\tFilter the novel precited genes.\n";
+    exit(-1);
+}
+
+sub checkPRE{
+    my $exec="ccov";
+    my @path=split /:/,$ENV{PATH};
+    my $fpflag=0;
+    foreach my $p (@path){
+	$p.="/".$exec;
+	if(-e $p && -x $p){
+	    $fpflag=1;
+	    last;
+	}
+    }
+    die("Can not find ccov in your PATH!\n
+") unless($fpflag);
+
+    $exec="Rscript";
+    @path=split /:/,$ENV{PATH};
+    $fpflag=0;
+    foreach my $p (@path){
+	$p.="/".$exec;
+	if(-e $p && -x $p){
+	    $fpflag=1;
+	    last;
+	}
+    }
+    die("Can not find Rscript in your PATH!\n
+") unless($fpflag);
+
+
+    $exec="bam2cov";
+    @path=split /:/,$ENV{PATH};
+    $fpflag=0;
+    foreach my $p (@path){
+	$p.="/".$exec;
+	if(-e $p && -x $p){
+	    $fpflag=1;
+	    last;
+	}
+    }
+    die("Can not find bam2cov in your PATH!\n
+") unless($fpflag);
+}
+

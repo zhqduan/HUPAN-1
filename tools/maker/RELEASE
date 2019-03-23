@@ -1,0 +1,2 @@
+#release 2.31.8
+*Updates an issue where GFF3 pass-through of ESTs can cause the program to freeze
