@@ -4,72 +4,95 @@
 
  **1. Introduction**
 The human reference genome is still incomplete, especially for those population-specific or individual-specific regions, which may have important functions. It encourages us to build the pan-genome of human population. Previously, our team developed a "map-to-pan" strategy--[EUPAN][1], specific for eukaryotic pan-genome analysis. However, due to the large genome size of individual human genome, [EUPAN][2] is not suit for pan-genome analysis involving in hundreds of individual genomes. Here, we present an improved tool, HUPAN (Human Pan-genome Analysis), for human pan-genome analysis.
+
 **2. Installation**
+
 **Requirements** 
-1) R 3.1 or later (https://www.r-project.org/) 
-R is utilized for visualization and statistical tests in HUPAN toolbox. Please install R first and make sure R and Rscript are under your PATH. 
-2) R packages Several R packages are needed including ggplot2, reshape2 and ape packages. Follow the Installation step 
-3) or you can install the packages by yourself.
+
+ - R 3.1 or later (https://www.r-project.org/)
+    
+    R is utilized for visualization and statistical tests in HUPAN
+    toolbox. Please install R first and make sure R and Rscript are
+    under your PATH.
+ - R packages Several R packages are needed including ggplot2, reshape2
+    and ape packages. Follow the Installation step,
+ - or you can install the packages by yourself.
+
 **Installation procedures** 
-1) Download the HUPAN toolbox from [github][3]:
+
+ - Download the HUPAN toolbox from [github][3]:
 
     git clone git@github.com:SJTU-CGM/HUPAN.git
 
-2) Alternatively, you also could obtain the package in the http://cgm.sjtu.edu.cn/hupan/. Please uncompressed the HUPAN toolbox package. 
+ - Alternatively, you also could obtain the package in the
+   http://cgm.sjtu.edu.cn/hupan/. Please uncompressed the HUPAN toolbox
+   package.
 
     tar zxvf HUPAN-v**.tar.gz 
 
-3) Install necessary R packages 
+ - Install necessary R packages
 
     cd HUPAN & Rscript installRPac 
 
-4) Compile necessary tools. 
+ - Compile necessary tools.
+   
+   make
+   
+     You will find executable files: *ccov*, *bam2cov* and *hupan* et
+   al. in bin/ directory.
 
-    make
+ - Add bin/ to PATH and add lib/ to LD_LIBRARY_PATH. To do this, add the
+   following text to ~/.bash_profile
+   
 
- You will find executable files: *ccov*, *bam2cov* and *hupan* et al. in bin/ directory.
-5) Add bin/ to PATH and add lib/ to LD_LIBRARY_PATH. To do this, add the following text to ~/.bash_profile 
+       export PATH=$PATH:/path/to/HUPAN/bin:   
+       export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/HUPAN/lib/:   
+       export PERL5LIB=$PERL5LIB:/path/to/HUPAN/lib/:
 
-    export PATH=$PATH:/path/to/HUPAN/bin: 
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/HUPAN/lib/: 
-    export PERL5LIB=$PERL5LIB:/path/to/HUPAN/lib/:
+ 
 
-and run 
+ - and run 
+   
+       source ~/.bash_profile
 
-    source ~/.bash_profile 
 
-6) Test if HUPAN toolbox is installed successfully. `hupan` If you see the following content, congratulations! HUPAN toolbox is successfully installed. If not, see if all the requirements are satisfied or contact the author for help.
+ - Test if HUPAN toolbox is installed successfully. `hupan` If you see
+   the following content, congratulations! HUPAN toolbox is successfully
+   installed. If not, see if all the requirements are satisfied or
+   contact the author for help.
 
-    Usage: hupan <command> ...
-    
-    Available commands:
-    	qualSta      	View the overall sequencing quality of a large number of files
-    	trim         	Trim or filter low-quality reads parallelly
-    	alignRead    	Map reads to a reference parallelly
-    	sam2bam      	Covert alignments (.sam) to sorted .bam files
-    	bamSta       	Statistics of parallel mapping
-    	assemble     	Assemble reads parallelly
-    	alignContig  	Align assembly results to a referenece parallelly
-    	extractSeq   	Extract contigs parallelly
-    	assemSta     	Statistics of parallel assembly
-    	getUnalnCtg  	Extract the unaligned contigs from nucmer alignment (processed by quast)
-    	rmRedundant  	Remove redundant contigs of a fasta file
-    	pTpG         	Get the longest transcripts to represent genes
-    	geneCov      	Calculate gene body coverage and CDS coverage
-    	geneExist    	Determine gene presence-absence based on gene body coverage and CDS coverage
-    	subSample    	Select subset of samples from gene PAV profile
-    	gFamExist    	Determine gene family presence-absence based on gene presence-absence
-    	bam2bed      	Calculate genome region presence-absence from .bam
-    	fastaSta     	Calculate statistics of fasta file
-    	sim          	Simulation and plot of the pan-genome and the core genome
-    	getTaxClass  	Obtain the taxonomic classification of sequences
-    	rmCtm        	Detect and discard the potentail contamination
-    	blastAlign   	Align sequences to target sequence by blast
-    	simSeq       	Simulate and plot the total size of novel sequences
-    	splitSeq     	Split sequence file into multiple small size files
-    	genePre      	Ab initio gene predict combining with RNA and protein evidence
-    	mergeNovGene 	Merge maker result from multiple maker result files
-    	filterNovGene	Filter the novel precited genes.
+   
+
+     Usage: hupan <command> ...
+        
+        Available commands:
+        	qualSta      	View the overall sequencing quality of a large number of files
+        	trim         	Trim or filter low-quality reads parallelly
+        	alignRead    	Map reads to a reference parallelly
+        	sam2bam      	Covert alignments (.sam) to sorted .bam files
+        	bamSta       	Statistics of parallel mapping
+        	assemble     	Assemble reads parallelly
+        	alignContig  	Align assembly results to a referenece parallelly
+        	extractSeq   	Extract contigs parallelly
+        	assemSta     	Statistics of parallel assembly
+        	getUnalnCtg  	Extract the unaligned contigs from nucmer alignment (processed by quast)
+        	rmRedundant  	Remove redundant contigs of a fasta file
+        	pTpG         	Get the longest transcripts to represent genes
+        	geneCov      	Calculate gene body coverage and CDS coverage
+        	geneExist    	Determine gene presence-absence based on gene body coverage and CDS coverage
+        	subSample    	Select subset of samples from gene PAV profile
+        	gFamExist    	Determine gene family presence-absence based on gene presence-absence
+        	bam2bed      	Calculate genome region presence-absence from .bam
+        	fastaSta     	Calculate statistics of fasta file
+        	sim          	Simulation and plot of the pan-genome and the core genome
+        	getTaxClass  	Obtain the taxonomic classification of sequences
+        	rmCtm        	Detect and discard the potentail contamination
+        	blastAlign   	Align sequences to target sequence by blast
+        	simSeq       	Simulate and plot the total size of novel sequences
+        	splitSeq     	Split sequence file into multiple small size files
+        	genePre      	Ab initio gene predict combining with RNA and protein evidence
+        	mergeNovGene 	Merge maker result from multiple maker result files
+        	filterNovGene	Filter the novel precited genes.
 
 **3.	Main analysis procedures**
 HUPAN is an improved version of EUPAN, and most functions were directly obtained from EUPAN. Besides, several new functions were developed for efficient pan-genome analysis on human genome. Here, we provide the main analysis procedures of human pan-genome analysis on an example data. And we provide three types of tools:
