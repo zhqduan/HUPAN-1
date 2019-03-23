@@ -4,8 +4,8 @@
 
  **1. Introduction**
 The human reference genome is still incomplete, especially for those population-specific or individual-specific regions, which may have important functions. It encourages us to build the pan-genome of human population. Previously, our team developed a "map-to-pan" strategy--[EUPAN][1], specific for eukaryotic pan-genome analysis. However, due to the large genome size of individual human genome, [EUPAN][2] is not suit for pan-genome analysis involving in hundreds of individual genomes. Here, we present an improved tool, HUPAN (Human Pan-genome Analysis), for human pan-genome analysis.
- **2. Installation**
- **Requirements** 
+**2. Installation**
+**Requirements** 
 1) R 3.1 or later (https://www.r-project.org/) 
 R is utilized for visualization and statistical tests in HUPAN toolbox. Please install R first and make sure R and Rscript are under your PATH. 
 2) R packages Several R packages are needed including ggplot2, reshape2 and ape packages. Follow the Installation step 
@@ -27,15 +27,13 @@ R is utilized for visualization and statistical tests in HUPAN toolbox. Please i
 
     make
 
- 
-You will find executable files: *ccov*, *bam2cov* and *hupan* et al. in bin/ directory.
+ You will find executable files: *ccov*, *bam2cov* and *hupan* et al. in bin/ directory.
 5) Add bin/ to PATH and add lib/ to LD_LIBRARY_PATH. To do this, add the following text to ~/.bash_profile 
 
     export PATH=$PATH:/path/to/HUPAN/bin: 
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/HUPAN/lib/: 
     export PERL5LIB=$PERL5LIB:/path/to/HUPAN/lib/:
 
- 
 and run 
 
     source ~/.bash_profile 
