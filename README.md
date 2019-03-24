@@ -40,15 +40,14 @@ The human reference genome is still incomplete, especially for those population-
  
     `make`
 
-You will find executable files: *ccov*, *bam2cov* and *hupan* et al. in bin/ directory.
+    You will find executable files: *ccov*, *bam2cov* and *hupan* et al. in bin/ directory.
 
  - Add bin/ to PATH and add lib/ to LD_LIBRARY_PATH. To do this, add the
    following text to ~/.bash_profile:
-   
 
-export PATH=$PATH:/path/to/HUPAN/bin:
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/HUPAN/lib/:   
-export PERL5LIB=$PERL5LIB:/path/to/HUPAN/lib/:
+    export PATH=$PATH:/path/to/HUPAN/bin:
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/HUPAN/lib/:   
+    export PERL5LIB=$PERL5LIB:/path/to/HUPAN/lib/:
 
  - and run: 
    
