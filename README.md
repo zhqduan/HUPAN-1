@@ -23,39 +23,36 @@ The human reference genome is still incomplete, especially for those population-
 
  - Download the HUPAN toolbox from [github][3]:
 
-`git clone git@github.com:SJTU-CGM/HUPAN.git`
+    `git clone git@github.com:SJTU-CGM/HUPAN.git`
  
  - Alternatively, you also could obtain the toolbox in the [HUPAN][4]
    website;
 
  - Please uncompress the HUPAN toolbox package:
  
-`tar zxvf HUPAN-v**.tar.gz`
+    `tar zxvf HUPAN-v**.tar.gz`
 
  - Install necessary R packages:
 
-`cd HUPAN & Rscript installRPac`
+    `cd HUPAN & Rscript installRPac`
  
  - Compile necessary tools:
  
-`make`
+    `make`
 
-    You will find executable files: *ccov*, *bam2cov* and *hupan* et al. in bin/ directory.
+You will find executable files: *ccov*, *bam2cov* and *hupan* et al. in bin/ directory.
 
  - Add bin/ to PATH and add lib/ to LD_LIBRARY_PATH. To do this, add the
    following text to ~/.bash_profile:
    
 
-       export PATH=$PATH:/path/to/HUPAN/bin:   
-       export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/HUPAN/lib/:   
-       export PERL5LIB=$PERL5LIB:/path/to/HUPAN/lib/:
-
- 
+    export PATH=$PATH:/path/to/HUPAN/bin:
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/HUPAN/lib/:   
+    export PERL5LIB=$PERL5LIB:/path/to/HUPAN/lib/:
 
  - and run: 
    
-       source ~/.bash_profile
-
+    `source ~/.bash_profile`
 
  - Test if HUPAN toolbox is installed successfully: `hupan`. If you see
    the following content, congratulations! HUPAN toolbox is successfully
