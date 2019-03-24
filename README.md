@@ -23,28 +23,26 @@ The human reference genome is still incomplete, especially for those population-
 
  - Download the HUPAN toolbox from [github][3]:
 
-     git clone git@github.com:SJTU-CGM/HUPAN.git
+    git clone git@github.com:SJTU-CGM/HUPAN.git
 
- - Alternatively, you also could obtain the toolbox in the [HUPAN][4] website. 
+ - Alternatively, you also could obtain the toolbox in the [HUPAN][4]
+   website;
 
- - Please uncompress the HUPAN toolbox package.
-   
-       tar zxvf HUPAN-v**.tar.gz
+ - Please uncompress the HUPAN toolbox package:
 
- - Install necessary R packages
+tar zxvf HUPAN-v**.tar.gz
 
-     cd HUPAN & Rscript installRPac
+ - Install necessary R packages:
 
- 
+    cd HUPAN & Rscript installRPac
 
- - Compile necessary tools.
+ - Compile necessary tools:
 
-     make
-
-     You will find executable files: *ccov*, *bam2cov* and *hupan* et al. in bin/ directory.
+make
+    You will find executable files: *ccov*, *bam2cov* and *hupan* et al. in bin/ directory.
 
  - Add bin/ to PATH and add lib/ to LD_LIBRARY_PATH. To do this, add the
-   following text to ~/.bash_profile
+   following text to ~/.bash_profile:
    
 
        export PATH=$PATH:/path/to/HUPAN/bin:   
@@ -53,12 +51,12 @@ The human reference genome is still incomplete, especially for those population-
 
  
 
- - and run 
+ - and run: 
    
        source ~/.bash_profile
 
 
- - Test if HUPAN toolbox is installed successfully: `hupan` If you see
+ - Test if HUPAN toolbox is installed successfully: `hupan`. If you see
    the following content, congratulations! HUPAN toolbox is successfully
    installed. If not, see if all the requirements are satisfied or
    contact the authors for help.
@@ -139,29 +137,33 @@ iii.After trimming or filtration of reads, the sequencing quality should be eval
 **(3) De novo assembly of individual genomes**
 
 To obtain non-reference sequences from each individual genome, we need first to conduct de novo assembly on the raw reads. We provide three distinct strategies:
-i.Directly assembly by [SOAPDenovo2][9]. Please note that this startegy requires huge memory for assembly an individual human genome (according to our test, finishing the assembly of a human genome of 30-fold sequencing data needs more than 500 Gb memory), we strongly suggested that do not use this command unless you have multiple supercomputer with huge memory.
+i.Directly assembly by [SOAPDenovo2][9]:
 
     hupanSLURM assemble soapdenovo -t 16 -k 91 data/ assembly_soap/ /path/to/SOAPDenovo2/
 
-ii.Assembly by the iterative use of SOAPDenovo2. Not Recommended.
+Please note that this startegy requires huge memory for assembly an individual human genome (according to our test, finishing the assembly of a human genome of 30-fold sequencing data needs more than 500 Gb memory), we strongly suggested that do not use this command unless you have multiple supercomputer with huge memory.
+
+ii.Assembly by the iterative use of SOAPDenovo2. Not Recommend.
 
     hupanSLURM linearK data assembly_linearK/ /path/to/SOAPDenovo2 
 
-iii. Assembly by [SGA][10]. We recommend the users preform assembly by this command. According to our experience on 185 newly sequenced genomes, the maximum memory consumption in assembling the human genome of 30-fold sequencing data is about 60Gb.
+iii. Assembly by [SGA][10]. 
 
     hupanSLURM assemble sga -t 16 data/ assembly_result /path/to/sga/
 
+We recommend the users preform assembly by this command. According to our experience on 185 newly sequenced genomes, the maximum memory consumption in assembling the human genome of 30-fold sequencing data is about 60Gb.
+
 **(4) Extract non-reference sequences from assembled contigs**
 
-i. In order to obtain the non-reference sequence from each individual genome, the assembled contigs are aligned to the reference genome with nucmer tool within [Mummer][11] package.
+i. In order to obtain the non-reference sequence from each individual genome, the assembled contigs are aligned to the reference genome with nucmer tool within [Mummer][11] package:
 
     hupanSLURM alignContig assembly_result/data/ aligned_result	 /path/to/MUMmer/ /path/to/reference.fa
 
-ii. Then the contigs those are highly similar with the reference genome are discarded and the remaining contigs are considered as candidate non-reference sequences.
+ii. Then the contigs those are highly similar with the reference genome are discarded and the remaining contigs are considered as candidate non-reference sequences:
 
     hupanSLURM extractSeq assembly_result/data/ candidate aligned_result
 
-iii. All the candidate non-reference sequences are assessed by [QUAST][12] to obtain non-reference sequences.  
+iii. All the candidate non-reference sequences are assessed by [QUAST][12] to obtain non-reference sequences:  
 
     hupanSLURM assemSta candidate/data/ quast_result /path/to/quast-4.5/ /path/to/reference.fa
 
@@ -169,53 +171,55 @@ iv. Two types of non-reference sequences, fully unaligned sequences and partiall
 
     hupanSLURM getUnalnCtg -p .contig candidate/data/ quast_result/data/ Unalign_result
 
-v. Non-reference sequences from multiple individuals are merged.
+v. Non-reference sequences from multiple individuals are merged:
 
     hupanSLURM mergeUnalnCtg Unalign_result/data/ mergeUnalnCtg_result
 
 **(5) Remove redundancy and potential commination sequences**
 
-i. After obtaining the non-reference sequences from multiple individuals, redundant sequences between different individuals should be excluded, and the potential commination sequences from non-human species are also removed for further analysis. The step of remove redundancy sequences is conducted by [CDHIT][13] for fully unaligned sequences and partially unaligned sequences, respectively.
+After obtaining the non-reference sequences from multiple individuals, redundant sequences between different individuals should be excluded, and the potential commination sequences from non-human species are also removed for further analysis.
+
+i. The step of remove redundancy sequences is conducted by [CDHIT][13] for fully unaligned sequences and partially unaligned sequences, respectively:
 
     hupanSLURM rmRedundant cdhitCluster  mergeUnalnCtg_result/total.fully.fa rmRedundant.fully.unaligned /path/to/cdhit/
     hupanSLURM rmRedundant cdhitCluster mergeUnalnCtg_result/total.partilly.fa rmRedundant.partially.unaligned /path/to/cd-hit/
 
-ii. Then the non-redundant sequences are aligned to NCBI’s non-redundant nucleotide database by blastn. 
+ii. Then the non-redundant sequences are aligned to NCBI’s non-redundant nucleotide database by blastn: 
 
     hupanSLURM blastAlign blast rmRedundant rmRedundant_blast /path/to/nt /path/to/blast
 
-iii. According to the alignment result, the taxonomic classification of each sequences (if have) could be obtained.
+iii. According to the alignment result, the taxonomic classification of each sequences (if have) could be obtained:
 
     hupanSLURM getTaxClass rmRedundant_blast/ data/fully/fully.non-redundant.blast info/ TaxClass_fully
     hupanSLURM getTaxClass rmRedundant_blast/ data/partially/partially.non-redundant.blast info/ TaxClass_partially
 
-iv. And the sequences classifying as microbiology and non-primate eukaryotes are considered as non-human sequences and removed from further consideration  
+iv. And the sequences classifying as microbiology and non-primate eukaryotes are considered as non-human sequences and removed from further consideration:  
 
     hupanSLURM rmCtm -i 60 rmRedundant/fully/fully.non-redundant.fa rmRedundant_blast/data/fully/fully.non-redundant.blast TaxClass_fully/data/accession.name rmCtm_fully
     hupanSLURM rmCtm -i 60 rmRedundant/partially/partially.non-redundant.fa rmRedundant_blast/data/partially/partially.non-redundant.blast TaxClass_partially/data/accession.name rmCtm_partially
 
 **(6) Construction and annotation of pan-genome**
 
-i. The non-redundant sequences of fully unaligned sequences and partially unaligned sequences are merged and further clustered to remove redundant sequences.
+i. The non-redundant sequences of fully unaligned sequences and partially unaligned sequences are merged and further clustered to remove redundant sequences:
 
     mkdir Nonreference
     cat rmCtm_fully/data/novel_sequence.fa rmCtm_partially/data/novel_sequence.fa > Nonreference/nonrefernce.before.fa
     hupanSLURM rmRedundant cdhitCluster Nonreference/nonrefernce.before.fa NonredundantNonreference /path/to/cdhit/
 
-ii. And the resulted sequences together with the human reference genome construct the pan-genome sequences. The annotation of reference genome could be directly download from [GenCODE][14] or other common used annotation dataset. The annotation information of non-reference sequences is predicted by [MAKER][15].Usually, the size of non-reference sequences is large and the procedure of gene prediction is slow. We recommend the users to split the file of non-reference sequences into multiple small files and run maker in parallel.
+ii. And the resulted sequences together with the human reference genome construct the pan-genome sequences. The annotation of reference genome could be directly download from [GenCODE][14] or other common used annotation dataset. The annotation information of non-reference sequences is predicted by [MAKER][15].In general, the size of non-reference sequences is large and the procedure of gene prediction is slow. We recommend the users to split the file of non-reference sequences into multiple small files and run maker in parallel:
 
     hupanSLURM splitSeq NonredundantNonreference/non-redundant.fa GenePre_input
     hupanSLURM genePre GenePre_input GenePre /path/to/maker/config_file /path/to/maker
 
-iii. Then after all procedures are finished, the outcomes are merged.
+iii. Then after all procedures are finished, the outcomes are merged:
 
     hupanSLURM mergeNovGene GenePre GenePre_merge /path/to/maker
 
-iv. The new predicted gene may be highly similar with the reference genome, and additional filtering step should be conducted to ensure the novelty of predicted gene. 
+iv. The new predicted gene may be highly similar with the reference genome, and additional filtering step should be conducted to ensure the novelty of predicted gene:
 
     hupanSLURM filterNovGen GenePre_merge GenePre_filter /path/to/reference/ /path/to/blast /path/to/cdhit /path/to/RepeatMask
 
-v. The annotation of pan-genome sequences is simply to obtain by combine two annotation file.
+v. The annotation of pan-genome sequences is simply to obtain by combine two annotation files:
  
 
      hupanSLURM pTpG ref/ref.gtf ref/ref-ptpg.gtf
@@ -224,31 +228,27 @@ v. The annotation of pan-genome sequences is simply to obtain by combine two ann
 **(7) PAV analysis**
 
 The “map-to_pan” strategy is utilized to determine gene presence-absence. 
-i. The raw reads are mapped to pan-genome sequences by [Bowtie2][16]
+i. The raw reads are mapped to pan-genome sequences by [Bowtie2][16]:
 
       cd pan & /path/to/bowtie2/bowtie2-build pan.fa pan &cd ..
       hupanSLURM alignRead –f bowtie2 data/ map2pam /path/to/bowtie2 pan/pan
 
-ii. The result of .sam should be converted to .bam and sorted and indexed use [Samtools][17].
+ii. The result of .sam should be converted to .bam and sorted and indexed use [Samtools][17]:
   
 
     hupanSLURM sam2bam map2pan/data panBam /path/to/samtools
 
-iii. Then the gene body coverage and the cds coverage of each gene are calculated.
+iii. Then the gene body coverage and the cds coverage of each gene are calculated:
 
       hupanSLURM geneCov panBam/data geneCov/ pan/pan.gtf
 
-iv. Finally, the gene presence-absence is determined by the threshold of cds coverage as 95%.
+iv. Finally, the gene presence-absence is determined by the threshold of cds coverage as 95%:
 
       mkdir geneExist & hupanSLURM geneExist geneCov/summary_gene.cov geneCov/summary_cds.cov 0 0.95 >geneExist/gene.exist
 
 **(8) Bugs or suggestions**
 
-Any bugs or suggestions, please contact the author,
-
-Zhongqu Duan: zhqduan@sjtu.edu.cn
-
-Chaochun Wei: ccwei@sjtu.edu.cn
+Any bugs or suggestions, please contact the [authors][18].
 
 
 
@@ -272,3 +272,4 @@ Chaochun Wei: ccwei@sjtu.edu.cn
   [15]: http://www.yandell-lab.org/software/maker.html
   [16]: http://bowtie-bio.sourceforge.net
   [17]: http://www.htslib.org/
+  [18]: http://cgm.sjtu.edu.cn/hupan/index.html
