@@ -109,7 +109,7 @@ Due to the large genome size of individual genome, conducting pan-genome analysi
 **(1)	Example data**
 
 This data set includes sequencing data of three samples from [NA12878][6]. Each sample include 6,000,000 paired-end reads that could map to chromosome 22. Note these are only simple example to help users understand the input data type and data structure and guide run the pipeline. The real data may be much larger and more complex. 
-Please download [here][7] and undecompress it:
+Please download [here][7] and decompress it:
 
     tar zxvf hupanExample.tar.gz & cd hupanExample
 
@@ -265,7 +265,7 @@ Any bugs or suggestions, please contact the [authors][20].
   [4]: http://cgm.sjtu.edu.cn/hupan/download.php
   [5]: http://cgm.sjtu.edu.cn/eupan/
   [6]: ftp://ftp-trace.ncbi.nih.gov/giab/ftp/data/NA12878/NIST_NA12878_HG001_HiSeq_300x/NHGRI_Illumina300X_novoalign_bams/HG001.GRCh38_full_plus_hs38d1_analysis_set_minus_alts.300x.bam
-  [7]: http://cgm.sjtu.edu.cn/hupan/data/ExampleData.tar.gz
+  [7]: http://cgm.sjtu.edu.cn/hupan/data/hupanExample.tar.gz
   [8]: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
   [9]: http://www.usadellab.org/cms/index.php?page=trimmomatic
   [10]: https://sourceforge.net/projects/soapdenovo2/
