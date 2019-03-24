@@ -23,22 +23,23 @@ The human reference genome is still incomplete, especially for those population-
 
  - Download the HUPAN toolbox from [github][3]:
 
-    git clone git@github.com:SJTU-CGM/HUPAN.git
-
+`git clone git@github.com:SJTU-CGM/HUPAN.git`
+ 
  - Alternatively, you also could obtain the toolbox in the [HUPAN][4]
    website;
 
  - Please uncompress the HUPAN toolbox package:
-
-tar zxvf HUPAN-v**.tar.gz
+ 
+`tar zxvf HUPAN-v**.tar.gz`
 
  - Install necessary R packages:
 
-    cd HUPAN & Rscript installRPac
-
+`cd HUPAN & Rscript installRPac`
+ 
  - Compile necessary tools:
+ 
+`make`
 
-make
     You will find executable files: *ccov*, *bam2cov* and *hupan* et al. in bin/ directory.
 
  - Add bin/ to PATH and add lib/ to LD_LIBRARY_PATH. To do this, add the
