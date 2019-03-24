@@ -121,11 +121,13 @@ And you can find two directories:
 **(2) The parallel quality control**
 
 The tools [FastQC][8] and [Trimmomatic][9] are used to view the sequencing quality and trim low-quality reads.
+
 i. The command `qualitySta` is used to overview qualities:
 
     hupanSLURM  qualSta -f /path/to/Fastqc -t 16 -v PE data/ preview_quality/
 
 Results can be found in the `preview_quality/` directory.
+
 ii. If the reads are not so good, the users could trim or filter low-quality reads by the command `trim`:
 
     hupanSLURM trim data/ trim/ /path/to/Trimmomatic
@@ -137,6 +139,7 @@ iii.After trimming or filtration of reads, the sequencing quality should be eval
 **(3) *De novo* assembly of individual genomes**
 
 To obtain non-reference sequences from each individual genome, we need first to conduct *de novo* assembly on the raw reads. We provide three distinct strategies:
+
 i.Directly assembly by [SOAPDenovo2][10]:
 
     hupanSLURM assemble soapdenovo -t 16 -k 91 data/ assembly_soap/ /path/to/SOAPDenovo2/
@@ -228,6 +231,7 @@ v. The annotation of pan-genome sequences is simply merged to obtain by combine 
 **(7) PAV analysis**
 
 The “map-to_pan” strategy is utilized to determine gene presence-absence. 
+
 i. The raw reads are mapped to pan-genome sequences by [Bowtie2][18]:
 
       cd pan & /path/to/bowtie2/bowtie2-build pan.fa pan &cd ..
