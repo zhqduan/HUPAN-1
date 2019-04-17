@@ -137,7 +137,7 @@ foreach my $s (@sample){
     open(JOB,">$job_file")||die("Error: Unable to create job file: $job_file\n");
     print JOB "\#!/bin/bash\n";
     print JOB "\#BSUB -J $s\n";              #job name
-    print JOB "\#BSUB -q $opt_q\n" if defined $opt_q;  #queue name in the submission system
+    print JOB "\#BSUB -p $opt_q\n" if defined $opt_q;  #queue name in the submission system
     print JOB "\#BSUB --output=$out_file\n";               #stdout
     print JOB "\#BSUB --error=$err_file\n";               #stderr
     print JOB "$com\n";                              #commands
