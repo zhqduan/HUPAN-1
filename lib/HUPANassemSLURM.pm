@@ -18,7 +18,7 @@ Commands:
     if($com eq "soapdenovo"){
 	soap(@ARGV);
     }
-    elsif($com eq "linearK.pl"){
+    elsif($com eq "linearK"){
 	linearK(@ARGV);
     }
     elsif($com eq "sga"){
