@@ -6,6 +6,10 @@
  
 The human reference genome is still incomplete, especially for those population-specific or individual-specific regions, which may have important functions. It encourages us to build the pan-genome of human population. Previously, our team developed a "map-to-pan" strategy, [EUPAN][1], specific for eukaryotic pan-genome analysis. However, due to the large genome size of individual human genome, [EUPAN][2] is not suit for pan-genome analysis involving in hundreds of individual genomes. Here, we present an improved tool, HUPAN (Human Pan-genome Analysis), for human pan-genome analysis.
 
+The HUPAN hompage is http://cgm.sjtu.edu.cn/hupan/
+
+The HUPAN paper is available at https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1751-y
+
 **2. Installation**
 
 **Requirements** 
