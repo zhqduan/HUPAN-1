@@ -151,7 +151,7 @@ Please note that this startegy requires huge memory for assembly an individual h
 
 ii.Assembly by the iterative use of SOAPDenovo2. Not Recommend.
 
-    hupanSLURM linearK data assembly_linearK/ /path/to/SOAPDenovo2
+    hupanSLURM assemble linearK data assembly_linearK/ /path/to/SOAPDenovo2
 
 iii. Assembly by [SGA][11]. 
 
