@@ -397,7 +397,7 @@ use warnings;
 use Cwd 'abs_path';
 use Getopt::Std;
 use vars qw($opt_h $opt_t $opt_d $opt_m);
-getopts("ht:d:m");
+getopts("ht:d:m:");
 
 my $usage="\nUsage: hupan assemble sga [options] <fastq_data_directory> <output_directory> <sga_directory>
 
