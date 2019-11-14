@@ -181,6 +181,11 @@ v. Non-reference sequences from multiple individuals are merged:
 
     hupanSLURM mergeUnalnCtg Unalign_result/data/ mergeUnalnCtg_result
    
+   Alternatively, if you conducted step iv by `hupan`, you can find the merge result in the Unalign_result/total:
+   
+    mv Unalign_result/total/ mergeUnalnCtg_result
+   
+   
 **(5) Remove redundancy and potential commination sequences**
 
 After obtaining the non-reference sequences from multiple individuals, redundant sequences between different individuals should be excluded, and the potential commination sequences from non-human species are also removed for further analysis.
@@ -192,12 +197,16 @@ i. The step of remove redundancy sequences is conducted by [CDHIT][14] for fully
 
 ii. Then the non-redundant sequences are aligned to NCBI’s non-redundant nucleotide database by [BLAST][15]: 
 
-    hupanSLURM blastAlign blast rmRedundant rmRedundant_blast /path/to/nt /path/to/blast
+    mkdir nt & cd nt
+    wget https://ftp.ncbi.nih.gov/blast/db/FASTA/nt.gz|gunzip & cd ..
+    hupanSLURM blastAlign mkblastdb nt nt_index path/to/blast
+    mkdir rmRedundant & mv rmRedundant.fully.unaligned rmRedundant & mv rmRedundant.partially.unaligned rmRedundant
+    hupanSLURM blastAlign blast rmRedundant rmRedundant_blast /path/to/nt_index /path/to/blast
 
 iii. According to the alignment result, the taxonomic classification of each sequences (if have) could be obtained:
 
-    hupanSLURM getTaxClass rmRedundant_blast/data/fully/fully.non-redundant.blast info/ TaxClass_fully
-    hupanSLURM getTaxClass rmRedundant_blast/data/partially/partially.non-redundant.blast info/ TaxClass_partially
+    hupanSLURM getTaxClass rmRedundant_blast/data/rmRedundant.fully.unaligned/non-redundant.blast info/ TaxClass_fully
+    hupanSLURM getTaxClass rmRedundant_blast/data/rmRedundant.partially.unaligned/non-redundant.blast info/ TaxClass_partially
 
 iv. And the sequences classifying as microbiology and non-primate eukaryotes are considered as non-human sequences and removed from further consideration:  
 
