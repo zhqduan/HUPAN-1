@@ -4,7 +4,7 @@
 
  **1. Introduction**
  
-The human reference genome is still incomplete, especially for those population-specific or individual-specific regions, which may have important functions. It encourages us to build the pan-genome of human population. Previously, our team developed a "map-to-pan" strategy, [EUPAN][1], specific for eukaryotic pan-genome analysis. However, due to the large genome size of individual human genome, [EUPAN][2] is not suit for pan-genome analysis involving in hundreds of individual genomes. Here, we present an improved tool, HUPAN (Human Pan-genome Analysis), for human pan-genome analysis.
+The human reference genome is still incomplete, especially for those population-specific or individual-specific regions, which may have important functions. It encourages us to build the pan-genome of human population. Previously, our team developed a "map-to-pan" strategy, [EUPAN][1], specific for eukaryotic pan-genome analysis. However, due to the large genome size of individual human genome, [EUPAN][2] is not suit for pan-genome analysis involving in hundreds of individual genomes. Here, we present an improved tool, HUPAN (HUman Pan-genome ANalysis), for human pan-genome analysis.
 
 The HUPAN hompage is http://cgm.sjtu.edu.cn/hupan/
 
@@ -181,7 +181,7 @@ v. Non-reference sequences from multiple individuals are merged:
 
     hupanSLURM mergeUnalnCtg Unalign_result/data/ mergeUnalnCtg_result
    
-   Alternatively, if you conducted step iv by `hupan`, you can find the merge result in the Unalign_result/total:
+   Alternatively, if you conducted step iv by `hupan`, you can find the merged result in the Unalign_result/total:
    
     mv Unalign_result/total/ mergeUnalnCtg_result
    
@@ -198,7 +198,7 @@ i. The step of remove redundancy sequences is conducted by [CDHIT][14] for fully
 ii. Then the non-redundant sequences are aligned to NCBI’s non-redundant nucleotide database by [BLAST][15]: 
 
     mkdir nt & cd nt
-    wget https://ftp.ncbi.nih.gov/blast/db/FASTA/nt.gz|gunzip & cd ..
+    wget https://ftp.ncbi.nih.gov/blast/db/FASTA/nt.gz |gunzip & cd ..
     hupanSLURM blastAlign mkblastdb nt nt_index path/to/blast
     mkdir rmRedundant & mv rmRedundant.fully.unaligned rmRedundant & mv rmRedundant.partially.unaligned rmRedundant
     hupanSLURM blastAlign blast rmRedundant rmRedundant_blast /path/to/nt_index /path/to/blast
