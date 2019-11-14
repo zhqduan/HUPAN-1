@@ -72,6 +72,7 @@ my @n;
 
 open(IN,$matrix);
 while(<IN>){
+    chomp;
     $i++;
     my @t=split /\t/,$_;
     if($i==1){
