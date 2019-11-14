@@ -196,8 +196,8 @@ ii. Then the non-redundant sequences are aligned to NCBI’s non-redundant nucle
 
 iii. According to the alignment result, the taxonomic classification of each sequences (if have) could be obtained:
 
-    hupanSLURM getTaxClass rmRedundant_blast/ data/fully/fully.non-redundant.blast info/ TaxClass_fully
-    hupanSLURM getTaxClass rmRedundant_blast/ data/partially/partially.non-redundant.blast info/ TaxClass_partially
+    hupanSLURM getTaxClass rmRedundant_blast/data/fully/fully.non-redundant.blast info/ TaxClass_fully
+    hupanSLURM getTaxClass rmRedundant_blast/data/partially/partially.non-redundant.blast info/ TaxClass_partially
 
 iv. And the sequences classifying as microbiology and non-primate eukaryotes are considered as non-human sequences and removed from further consideration:  
 
