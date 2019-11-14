@@ -177,8 +177,10 @@ iv. Two types of non-reference sequences, fully unaligned sequences and partiall
 
     hupanSLURM getUnalnCtg -p .contig candidate/data/ quast_result/data/ Unalign_result
 
-v. Non-reference sequences from multiple individuals are merged and avaivable in the Unalign_result/total.
+v. Non-reference sequences from multiple individuals are merged:
 
+    hupanSLURM mergeUnalnCtg Unalign_result/data/ mergeUnalnCtg_result
+   
 **(5) Remove redundancy and potential commination sequences**
 
 After obtaining the non-reference sequences from multiple individuals, redundant sequences between different individuals should be excluded, and the potential commination sequences from non-human species are also removed for further analysis.
