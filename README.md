@@ -210,8 +210,8 @@ iii. According to the alignment result, the taxonomic classification of each seq
 
 iv. And the sequences classifying as microbiology and non-primate eukaryotes are considered as non-human sequences and removed from further consideration:  
 
-    hupanSLURM rmCtm -i 60 rmRedundant/fully/fully.non-redundant.fa rmRedundant_blast/data/fully/fully.non-redundant.blast TaxClass_fully/data/accession.name rmCtm_fully
-    hupanSLURM rmCtm -i 60 rmRedundant/partially/partially.non-redundant.fa rmRedundant_blast/data/partially/partially.non-redundant.blast TaxClass_partially/data/accession.name rmCtm_partially
+    hupanSLURM rmCtm -i 60 rmRedundant/rmRedundant.fully.unaligned/non-redundant.fa rmRedundant_blast/data/rmRedundant.fully.unaligned/non-redundant.blast TaxClass_fully/data/accession.name rmCtm_fully
+    hupanSLURM rmCtm -i 60 rmRedundant/rmRedundant.partially.unaligned/non-redundant.fa rmRedundant_blast/data/rmRedundant.partially.unaligned/non-redundant.blast TaxClass_partially/data/accession.name rmCtm_partially
 
 **(6) Construction and annotation of pan-genome**
 
