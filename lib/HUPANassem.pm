@@ -441,8 +441,8 @@ my ($data_dir,$out_dir,$sga_dir)=@ARGV;
 
 $data_dir=abs_path($data_dir);
 $out_dir=abs_path($out_dir);
-print $data_dir."\n";
-print $out_dir."\n";
+#print $data_dir."\n";
+#print $out_dir."\n";
 my $cmd_dir=$ENV{'PWD'};
 
 #Check existence of output directory
