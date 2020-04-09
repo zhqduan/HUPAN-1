@@ -94,10 +94,7 @@ my ($data_dir,$out_dir,$tool_dir)=@ARGV;
 
 #Check existence of output directory
 if(-e $out_dir){
-    die("Error: output directory \"$out_dir\" already exists.
-To avoid overwriting of existing files. We kindly request that the
- output directory should not exist.
-");
+    die("Error: output directory \"$out_dir\" already exists. To avoid overwriting of existing files. We kindly request that the output directory should not exist.\n");
 }
 
 $tool_dir.="/" unless $tool_dir=~/\/$/;
@@ -309,10 +306,7 @@ my ($data_dir,$out_dir,$soapdenovo)=@ARGV;
 
 #Check existence of output directory
 if(-e $out_dir){
-    die("Error: output directory \"$out_dir\" already exists.
-To avoid overwriting of existing files. We kindly request that the
- output directory should not exist
-.");
+    die("Error: output directory \"$out_dir\" already exists. To avoid overwriting of existing files. We kindly request that the output directory should not exist.\n");
 }
 #Check executable linearK.pl
 my $exec="linearK.pl";
@@ -458,10 +452,7 @@ my $cmd_dir=$ENV{'PWD'};
 
 #Check existence of output directory
 if(-e $out_dir){
-    die("Error: output directory \"$out_dir\" already exists.
-To avoid overwriting of existing files. We kindly request that the
- output directory should not exist
-.");
+    die("Error: output directory \"$out_dir\" already exists. To avoid overwriting of existing files. We kindly request that the output directory should not exist.\n");
 }
 
 #Check executable sga

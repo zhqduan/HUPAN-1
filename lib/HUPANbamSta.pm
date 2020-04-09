@@ -68,10 +68,7 @@ die("Error01: Cannot find bam_stats file in directory bin/ under $bamutil_dir\n"
 
 #Check existence of output directory
 if(-e $out_dir){
-    die("Error: output directory \"$out_dir\" already exists.
-To avoid overwriting of existing files. We kindly request that the
- output directory should not exist.
-");
+    die("Error: output directory \"$out_dir\" already exists. To avoid overwriting of existing files. We kindly request that the output directory should not exist.\n");
 }
 
 #Read threads
@@ -174,10 +171,7 @@ die("Error01: Cannot find qualimap file in directory bin/ under $qualimap_dir\n"
 
 #Check existence of output directory
 if(-e $out_dir){
-    die("Error: output directory \"$out_dir\" already exists.
-To avoid overwriting of existing files. We kindly request that the
- output directory should not exist.
-");
+    die("Error: output directory \"$out_dir\" already exists. To avoid overwriting of existing files. We kindly request that the output directory should not exist.\n");
 }
 
 #Read threads

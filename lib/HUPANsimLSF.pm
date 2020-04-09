@@ -39,10 +39,7 @@ Options:
 
 #Check existence of output directory
     if(-e $out_dir){
-	die("Error: output directory \"$out_dir\" already exists.
-To avoid overwriting of existing files. We kindly request that the
- output directory should not exist.
-");
+	die("Error: output directory \"$out_dir\" already exists. To avoid overwriting of existing files. We kindly request that the output directory should not exist.\n");
     }
     
 #get simulation number
