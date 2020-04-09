@@ -138,7 +138,7 @@ ii. If the reads are not so good, the users could trim or filter low-quality rea
 
 Results could be found in the trim or filter directory.
 
-iii.After trimming or filtration of reads, the sequencing quality should be evaluated again by `qualitySta`, and if the trimming results are still not good for subsequent analyses, new parameters should be given and the above steps should be conducted for several times.
+iii. After trimming or filtration of reads, the sequencing quality should be evaluated again by `qualitySta`, and if the trimming results are still not good for subsequent analyses, new parameters should be given and the above steps should be conducted for several times.
 
 **(3) *De novo* assembly of individual genomes**
 
@@ -277,7 +277,7 @@ Any bugs or suggestions, please contact the [authors][20].
   [3]: https://github.com/SJTU-CGM/HUPAN
   [4]: http://cgm.sjtu.edu.cn/hupan/download.php
   [5]: http://cgm.sjtu.edu.cn/eupan/
-  [6]: ftp://ftp-trace.ncbi.nih.gov/giab/ftp/data/NA12878/NIST_NA12878_HG001_HiSeq_300x/NHGRI_Illumina300X_novoalign_bams/HG001.GRCh38_full_plus_hs38d1_analysis_set_minus_alts.300x.bam
+  [6]: http://ftp-trace.ncbi.nih.gov/giab/ftp/data/NA12878/NIST_NA12878_HG001_HiSeq_300x/NHGRI_Illumina300X_novoalign_bams/HG001.GRCh38_full_plus_hs38d1_analysis_set_minus_alts.300x.bam
   [7]: http://cgm.sjtu.edu.cn/hupan/data/hupanExample.tar.gz
   [8]: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
   [9]: http://www.usadellab.org/cms/index.php?page=trimmomatic
