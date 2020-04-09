@@ -29,11 +29,11 @@ Necessary input description:
 
 Options:
 
-     -h                            Print this usage page.
+     -h                              Print this usage page.
      
-     -l                            The local alignment length. (default: 100 bp)
+     -l                <int>         The local alignment length. (default: 100 bp)
 
-     -i                            The local alignment identity. (default: 90%)
+     -i                <int>         The local alignment identity. (default: 90%)
 
 ";
 
