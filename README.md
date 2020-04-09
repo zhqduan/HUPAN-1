@@ -1,4 +1,4 @@
-﻿#HUPAN
+﻿# HUPAN: HUman Pan-genome ANalysis
 
 ---
 
@@ -137,6 +137,7 @@ ii. If the reads are not so good, the users could trim or filter low-quality rea
     hupanSLURM trim -w 100 -m 100 data/ filter/ /path/to/Trimmomatic
 
 Results could be found in the trim or filter directory.
+
 iii.After trimming or filtration of reads, the sequencing quality should be evaluated again by `qualitySta`, and if the trimming results are still not good for subsequent analyses, new parameters should be given and the above steps should be conducted for several times.
 
 **(3) *De novo* assembly of individual genomes**
