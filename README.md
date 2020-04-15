@@ -187,9 +187,9 @@ v. Non-reference sequences from multiple individuals are merged:
     mv Unalign_result/total/ mergeUnalnCtg_result
    
    
-**(5) Remove redundancy and potential commination sequences**
+**(5) Remove redundancy and potential contamination sequences**
 
-After obtaining the non-reference sequences from multiple individuals, redundant sequences between different individuals should be excluded, and the potential commination sequences from non-human species are also removed for further analysis.
+After obtaining the non-reference sequences from multiple individuals, redundant sequences between different individuals should be excluded, and the potential contamination sequences from non-human species are also removed for further analysis.
 
 i. The step of remove redundancy sequences is conducted by [CDHIT][14] for fully unaligned sequences and partially unaligned sequences, respectively:
 
