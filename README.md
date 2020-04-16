@@ -206,6 +206,9 @@ ii. Then the non-redundant sequences are aligned to NCBI’s non-redundant nucle
 
 iii. According to the alignment result, the taxonomic classification of each sequences (if have) could be obtained:
 
+    wget ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/accession2taxid/nucl_gb.accession2taxid
+    wget https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.tar.gz & tar -zvxf new_taxdump.tar.gz
+    mkdir info & mv nucl_gb.accession2taxid info & mv new_taxdump/rankedlineage.dmp info
     hupanSLURM getTaxClass rmRedundant_blast/data/rmRedundant.fully.unaligned/non-redundant.blast info/ TaxClass_fully
     hupanSLURM getTaxClass rmRedundant_blast/data/rmRedundant.partially.unaligned/non-redundant.blast info/ TaxClass_partially
 
