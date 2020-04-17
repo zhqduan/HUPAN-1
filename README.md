@@ -6,7 +6,7 @@
  
 The human reference genome is still incomplete, especially for those population-specific or individual-specific regions, which may have important functions. It encourages us to build the pan-genome of human population. Previously, our team developed a "map-to-pan" strategy, [EUPAN][1], specific for eukaryotic pan-genome analysis. However, due to the large genome size of individual human genome, [EUPAN][2] is not suit for pan-genome analysis involving in hundreds of individual genomes. Here, we present an improved tool, HUPAN (HUman Pan-genome ANalysis), for human pan-genome analysis.
 
-The HUPAN hompage is http://cgm.sjtu.edu.cn/hupan/
+The HUPAN homepage is http://cgm.sjtu.edu.cn/hupan/
 
 The HUPAN paper is available at https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1751-y
 
@@ -19,9 +19,11 @@ The HUPAN paper is available at https://genomebiology.biomedcentral.com/articles
     R is utilized for visualization and statistical tests in HUPAN
     toolbox. Please install R first and make sure R and Rscript are
     under your PATH.
- - R packages Several R packages are needed including ggplot2, reshape2
-    and ape packages. Follow the Installation step,
- - or you can install the packages by yourself.
+
+ - R packages 
+
+    Several R packages are needed including ggplot2, reshape2
+    and ape packages. Follow the Installation step, or you can install the packages by yourself.
 
 **Installation procedures** 
 
@@ -30,9 +32,7 @@ The HUPAN paper is available at https://genomebiology.biomedcentral.com/articles
     `git clone git@github.com:SJTU-CGM/HUPAN.git`
  
  - Alternatively, you also could obtain the toolbox in the [HUPAN][4]
-   website;
-
- - Please uncompress the HUPAN toolbox package:
+   website and uncompress the HUPAN toolbox package:
  
     `tar zxvf HUPAN-v**.tar.gz`
 
