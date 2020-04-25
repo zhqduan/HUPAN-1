@@ -236,13 +236,12 @@ iii. Then after all procedures are finished, the outcomes are merged:
 
 iv. The new predicted genes may be highly similar to the genes that are located in reference genome, and additional filtering step should be conducted to ensure the novelty of predicted gene:
 
-    hupanSLURM filterNovGen GenePre_merge GenePre_filter /path/to/reference/ /path/to/blast /path/to/cdhit /path/to/RepeatMask
+    hupanSLURM filterNovGene GenePre_merge GenePre_filter /path/to/reference/ /path/to/blast /path/to/cdhit /path/to/RepeatMask
 
 v. The annotation of pan-genome sequences is simply merged to obtain by combine two annotation files:
  
-
-     hupanSLURM pTpG ref/ref.gtf ref/ref-ptpg.gtf
-     cat ref/ref-ptpg.gtf non-reference.gtf >pan/pan.gtf
+     hupanSLURM pTpG ref/ref.gff ref/ref-ptpg.gff
+     cat ref/ref-ptpg.gff non-reference.gtf >pan/pan.gff
 
 **(7) PAV analysis**
 
@@ -260,7 +259,7 @@ ii. The result of .sam should be converted to .bam and sorted and indexed use [S
 
 iii. Then the gene body coverage and the cds coverage of each gene are calculated:
 
-      hupanSLURM geneCov panBam/data geneCov/ pan/pan.gtf
+      hupanSLURM geneCov panBam/data geneCov/ pan/pan.gff
 
 iv. Finally, the gene presence-absence is determined by the threshold of cds coverage as 95%:
 
