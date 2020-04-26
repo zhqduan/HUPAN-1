@@ -5,8 +5,8 @@ sub checkQual{
     use strict;
     use warnings;
     use Getopt::Std;
-    use vars qw($opt_h $opt_f $opt_t $opt_v);
-    getopts("hf:t:v:");
+    use vars qw($opt_h $opt_f $opt_t);
+    getopts("hf:t:");
     my $usage="\nUsage: hupan qualSta [options] <data_directory> <output_directory>
 
 qualSta is used to check qualities of \".fq.gz\"/\".fastq.gz\" files on a large scale.
@@ -40,10 +40,7 @@ Options:
                                  program. It is recommended to set as the number of 
                                  files within each sample. Pay attention that the
                                  machine should have this number of threads.
-                                 default: 1 
-    
-     -v            <string>      Sets to: PE, if all files are PE data.
-				
+                                 default: 1 			
 ";
 
     die $usage if @ARGV!=2;
