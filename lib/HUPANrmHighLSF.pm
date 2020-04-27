@@ -263,7 +263,7 @@ foreach my $s (@sample){
     while(<FILE1>){
     chomp;
     if($_=~/^>/){
-        my @t=split / /,$_;
+        my @t=split /\s+/,$_;
         my $name=substr($t[0],1,length($t[0])-1);
         $names{$name}=1;
         }
@@ -285,7 +285,8 @@ foreach my $s (@sample){
         }
         else{
             chomp;
-            my @t=split ' ',$_;
+            $_=~s/^ +//;
+            my @t=split /\s+/,$_;
             #print @t;
             my $i=$t[9];
             my $c=$t[15];
@@ -318,7 +319,7 @@ foreach my $s (@sample){
     while(my $line=<FILE3>){
         chomp $line;
         if($line=~/^>/){
-            my @t=split / /,$line;
+            my @t=split /\s+/,$line;
             my $name=substr($t[0],1,length($t[0])-1);
             if(exists $names{$name}){
                 print FILE4 $line."\n";
