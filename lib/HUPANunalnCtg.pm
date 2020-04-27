@@ -9,8 +9,8 @@ sub getUnaln{
 use strict;
 use warnings;
 use Getopt::Std;
-use vars qw($opt_h $opt_p);
-getopts("hp:");
+use vars qw($opt_h $opt_s);
+getopts("hs:");
 
 my $usage="\nUsage: hupan getUnalnCtg [options]  <assembly_directory> <QUAST_assess_directory> <output_directory>
 
@@ -37,7 +37,7 @@ Necessary input description:
 Options:
      -h                               Print this usage page.
 
-     -p                   <string>    The suffix of contigs file in assembly directory.
+     -s                   <string>    The suffix of contigs file in assembly directory.
                                       Default: \".contig.gz\"
                
 
@@ -72,7 +72,7 @@ if(-e $out_dir){
 
 my $thread_num=1;
 my $suffix=".contig.gz";
-$suffix=$opt_p if defined $opt_p;
+$suffix=$opt_s if defined $opt_s;
 #Create output directory and sub-directories
 mkdir($out_dir);
 my $out_data=$out_dir."data/";

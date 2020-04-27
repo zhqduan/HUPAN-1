@@ -41,10 +41,10 @@ Options:
                                  program. It is recommended to set as the number of 
                                  files within each sample. Pay attention that the
                                  machine should have this number of threads.
-                                 default: 1 
+                                 Default: 1 
 
      -q            <string>      The queue name for job submiting. 
-                                 default: default queue
+                                 Default: default queue
 ";
 
     die $usage if @ARGV!=2;

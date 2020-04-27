@@ -160,7 +160,7 @@ Options:
      -h                            Print this usage page.
 
      -i              <float>       The theshold of identity.
-                                   Default: 0.95>.
+                                   Default: 0.95.
 
      -c              <float>       The theshold of query coverage.
                                    Default: 0.95.
