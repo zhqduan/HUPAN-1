@@ -179,11 +179,6 @@ sub mergeFastqc{
 	    next if $f=~/^\./;
 	    next if $f=~/\.zip$/;
 	    next if $f=~/\.html$/;
-	    if(defined($opt_v)){
-		if($opt_v eq "PE"){
-		next if $f=~/^single/;
-		}
-	    }
 	    my $fd=$sd."/".$f."/"."summary.txt";
 	    open(FILE,$fd) ||die("Unable to open fastqc output file: $fd\n");
 	    my @tmp=<FILE>;
