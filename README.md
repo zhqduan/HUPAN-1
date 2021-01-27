@@ -176,7 +176,7 @@ iii. All the candidate non-reference sequences are assessed by [QUAST][13] to ob
 
 iv. Two types of non-reference sequences, fully unaligned sequences and partially unaligned sequences, for each individual could be collected:
 
-    hupanSLURM getUnalnCtg -p .contig candidate/data/ quast_result/data/ Unalign_result
+    hupanSLURM getUnalnCtg -s .contig candidate/data/ quast_result/data/ Unalign_result
 
 v. Non-reference sequences from multiple individuals are merged:
 
